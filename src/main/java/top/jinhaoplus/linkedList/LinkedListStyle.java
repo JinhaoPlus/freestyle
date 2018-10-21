@@ -1,29 +1,29 @@
-package top.jinhaoplus;
+package top.jinhaoplus.linkedList;
 
-public class LinkListStyle {
+public class LinkedListStyle {
     public static void main(String[] args) {
-        LinkList linkList = new LinkList();
-        linkList.addNode(1);
-        linkList.addNode(2);
-        linkList.addNode(3);
-        linkList.addNode(4);
-        linkList.addNode(5);
-        linkList.traverse();
-        linkList.insertNode(3, 6);
-        linkList.traverse();
-        linkList.insertNode(4, 7);
-        linkList.traverse();
-        linkList.deleteNode(6);
-        linkList.traverse();
-        linkList.deleteNode(7);
-        linkList.traverse();
+        LinkedList linkedList = new LinkedList();
+        linkedList.addNode(1);
+        linkedList.addNode(2);
+        linkedList.addNode(3);
+        linkedList.addNode(4);
+        linkedList.addNode(5);
+        linkedList.traverse();
+        linkedList.insertNode(3, 6);
+        linkedList.traverse();
+        linkedList.insertNode(4, 7);
+        linkedList.traverse();
+        linkedList.deleteNode(6);
+        linkedList.traverse();
+        linkedList.deleteNode(7);
+        linkedList.traverse();
     }
 }
 
-class LinkList {
+class LinkedList {
     Node head;
 
-    LinkList() {
+    LinkedList() {
         this.head = new Node();
     }
 
