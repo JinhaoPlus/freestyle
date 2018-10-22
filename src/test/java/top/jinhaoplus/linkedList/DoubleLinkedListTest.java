@@ -92,61 +92,83 @@ public class DoubleLinkedListTest {
         Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 5, 15, 5, 4, 3, 2, 1}, linkedList.insertAfterNodeValue(5, 15)));
     }
 
-    //    @Test
-//    public void insertNodeByIndex0() {
-//        Assert.assertTrue(verifyResult(new Object[]{10, 1, 2, 3, 4, 5}, linkedList.insertNodeByIndex(0, 10)));
-//    }
-//
-//    @Test
-//    public void insertNodeByIndex1() {
-//        Assert.assertTrue(verifyResult(new Object[]{1, 11, 2, 3, 4, 5}, linkedList.insertNodeByIndex(1, 11)));
-//    }
-//
-//    @Test
-//    public void insertNodeByIndex5() {
-//        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 5, 15}, linkedList.insertNodeByIndex(5, 15)));
-//    }
-//
-//    @Test
-//    public void deleteByNodeValue1() {
-//        Assert.assertTrue(verifyResult(new Object[]{2, 3, 4, 5}, linkedList.deleteByNodeValue(1)));
-//    }
-//
-//    @Test
-//    public void deleteByNodeValue2() {
-//        Assert.assertTrue(verifyResult(new Object[]{1, 3, 4, 5}, linkedList.deleteByNodeValue(2)));
-//    }
-//
-//    @Test
-//    public void deleteByNodeValue5() {
-//        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4}, linkedList.deleteByNodeValue(5)));
-//    }
-//
-//    @Test
-//    public void deleteByNodeValue6() {
-//        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 5}, linkedList.deleteByNodeValue(6)));
-//    }
-//
-//    @Test
-//    public void deleteAllNodes() {
-//        Assert.assertTrue(verifyResult(new Object[]{}, linkedList.deleteByNodeValue(5).deleteByNodeValue(4).deleteByNodeValue(3).deleteByNodeValue(2).deleteByNodeValue(1)));
-//    }
-//
-//    @Test
-//    public void deleteByIndex0() {
-//        Assert.assertTrue(verifyResult(new Object[]{2, 3, 4, 5}, linkedList.deleteByIndex(0)));
-//    }
-//
-//    @Test
-//    public void deleteByIndex1() {
-//        Assert.assertTrue(verifyResult(new Object[]{1, 3, 4, 5}, linkedList.deleteByIndex(1)));
-//    }
-//
-//    @Test
-//    public void deleteByIndex4() {
-//        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4}, linkedList.deleteByIndex(4)));
-//    }
-//
+    @Test
+    public void insertBeforeNodeValue0() {
+        Assert.assertTrue(verifyResult(new Object[]{}, new DoubleLinkedList().insertBeforeNodeValue(0, 10)));
+    }
+
+    @Test
+    public void insertBeforeNodeValue1() {
+        Assert.assertTrue(verifyResult(new Object[]{11, 1, 2, 3, 4, 5, 4, 3, 2, 1, 11}, linkedList.insertBeforeNodeValue(1, 11)));
+    }
+
+    @Test
+    public void insertBeforeNodeValue2() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 12, 2, 3, 4, 5, 4, 3, 2, 12, 1}, linkedList.insertBeforeNodeValue(2, 12)));
+    }
+
+    @Test
+    public void insertBeforeNodeValue5() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 15, 5, 15, 4, 3, 2, 1}, linkedList.insertBeforeNodeValue(5, 15)));
+    }
+
+    @Test
+    public void insertNodeByIndex0() {
+        Assert.assertTrue(verifyResult(new Object[]{10, 1, 2, 3, 4, 5, 4, 3, 2, 1, 10}, linkedList.insertNodeByIndex(0, 10)));
+    }
+
+    @Test
+    public void insertNodeByIndex1() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 11, 2, 3, 4, 5, 4, 3, 2, 11, 1}, linkedList.insertNodeByIndex(1, 11)));
+    }
+
+    @Test
+    public void insertNodeByIndex5() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 5, 15, 5, 4, 3, 2, 1}, linkedList.insertNodeByIndex(5, 15)));
+    }
+
+
+    @Test
+    public void deleteByNodeValue1() {
+        Assert.assertTrue(verifyResult(new Object[]{2, 3, 4, 5, 4, 3, 2}, linkedList.deleteByNodeValue(1)));
+    }
+
+    @Test
+    public void deleteByNodeValue2() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 3, 4, 5, 4, 3, 1}, linkedList.deleteByNodeValue(2)));
+    }
+
+    @Test
+    public void deleteByNodeValue5() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 3, 2, 1}, linkedList.deleteByNodeValue(5)));
+    }
+
+    @Test
+    public void deleteByNodeValue6() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 5, 4, 3, 2, 1}, linkedList.deleteByNodeValue(6)));
+    }
+
+
+    @Test
+    public void deleteAllNodes() {
+        Assert.assertTrue(verifyResult(new Object[]{}, linkedList.deleteByNodeValue(5).deleteByNodeValue(4).deleteByNodeValue(3).deleteByNodeValue(2).deleteByNodeValue(1)));
+    }
+
+    @Test
+    public void deleteByIndex0() {
+        Assert.assertTrue(verifyResult(new Object[]{2, 3, 4, 5, 4, 3, 2}, linkedList.deleteByIndex(0)));
+    }
+
+    @Test
+    public void deleteByIndex1() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 3, 4, 5, 4, 3, 1}, linkedList.deleteByIndex(1)));
+    }
+
+    @Test
+    public void deleteByIndex4() {
+        Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 3, 2, 1}, linkedList.deleteByIndex(4)));
+    }
+
     @Test
     public void testVerifyResult() {
         Assert.assertTrue(verifyResult(new Object[]{1, 2, 3, 4, 5, 4, 3, 2, 1}, linkedList));

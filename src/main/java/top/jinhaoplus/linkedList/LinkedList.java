@@ -132,9 +132,9 @@ public class LinkedList {
     }
 
     /**
-     * 在值为indexValue的节点后删除一个值为value的节点
+     * 删除一个值为nodeValue的节点
      *
-     * @param nodeValue 要在值为indexValue的节点后删除
+     * @param nodeValue 要删除的节点值为indexValue
      * @return 链表本身
      */
     public LinkedList deleteByNodeValue(Object nodeValue) {

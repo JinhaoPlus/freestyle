@@ -97,12 +97,12 @@ public class DoubleLinkedList {
         while (pointer != null) {
             if (pointer.value == nodeValue) {
                 DoubleNode newNode = new DoubleNode(value);
+                newNode.next = pointer.next;
+                newNode.prev = pointer;
                 if (pointer.next != null) {
-                    newNode.next = pointer.next;
                     pointer.next.prev = newNode;
                 }
                 pointer.next = newNode;
-                newNode.prev = pointer;
                 size++;
                 break;
             } else {
@@ -120,16 +120,97 @@ public class DoubleLinkedList {
      * @return 链表本身
      */
     public DoubleLinkedList insertBeforeNodeValue(Object nodeValue, int value) {
-        DoubleNode pointer = head;
+        DoubleNode pointer = head.next;
         while (pointer != null) {
             if (pointer.value == nodeValue) {
                 DoubleNode newNode = new DoubleNode(value);
+                // 保证最后丢弃的指向关系是以前的两个节点的，先建立的是newNode和两个节点的
+                newNode.next = pointer;
+                newNode.prev = pointer.prev;
+                pointer.prev.next = newNode;
+                pointer.prev = newNode;
+                size++;
+                break;
+            } else {
+                pointer = pointer.next;
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 插入一个值为value的节点到第index的位置上
+     *
+     * @param index 第index的位置
+     * @param value 插入的节点的值
+     * @return 链表本身
+     */
+    public DoubleLinkedList insertNodeByIndex(int index, Object value) {
+        DoubleNode pointer = head;
+        int cursor = 0;
+        while (pointer != null) {
+            if (cursor == index) {
+                DoubleNode newNode = new DoubleNode(value);
                 newNode.next = pointer.next;
+                newNode.prev = pointer;
+                if (pointer.next != null) {
+                    pointer.next.prev = newNode;
+                }
                 pointer.next = newNode;
                 size++;
                 break;
             } else {
                 pointer = pointer.next;
+                cursor++;
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 删除一个值为nodeValue的节点
+     *
+     * @param nodeValue 要删除的节点值为indexValue
+     * @return 链表本身
+     */
+    public DoubleLinkedList deleteByNodeValue(Object nodeValue) {
+        DoubleNode pointer = head.next;
+        while (pointer != null) {
+            if (pointer.value == nodeValue) {
+                pointer.prev.next = pointer.next;
+                if (pointer.next != null) {
+                    pointer.next.prev = pointer.prev;
+                }
+                size--;
+                break;
+            } else {
+                pointer = pointer.next;
+            }
+        }
+        return this;
+    }
+
+
+    /**
+     * 删除第index的位置上的节点
+     *
+     * @param index 第index的位置
+     * @return 链表本身
+     */
+    public DoubleLinkedList deleteByIndex(int index) {
+        DoubleNode pointer = head.next;
+        int cursor = 0;
+        while (pointer != null) {
+            if (cursor == index) {
+                pointer.prev.next = pointer.next;
+                if (pointer.next != null) {
+                    pointer.next.prev = pointer.prev;
+                }
+                size--;
+                break;
+            } else {
+                pointer = pointer.next;
+                cursor++;
             }
         }
         return this;
