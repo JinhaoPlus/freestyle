@@ -1,14 +1,14 @@
 package top.jinhaoplus.linkedList;
 
-public class LinkedList {
+public class DoubleLinkedList {
 
-    private Node head;
+    private DoubleNode head;
 
     private int size;
 
-    LinkedList() {
+    DoubleLinkedList() {
+        this.head = new DoubleNode();
         this.size = 0;
-        this.head = new Node();
     }
 
     public int getSize() {
@@ -25,12 +25,14 @@ public class LinkedList {
      * @param value 插入的节点的值
      * @return 链表本身
      */
-    public LinkedList addNode(int value) {
-        Node pointer = head;
+    public DoubleLinkedList addNode(int value) {
+        DoubleNode pointer = head;
         while (pointer.next != null) {
             pointer = pointer.next;
         }
-        pointer.next = new Node(value);
+        DoubleNode newNode = new DoubleNode(value);
+        pointer.next = newNode;
+        newNode.prev = pointer;
         size++;
         return this;
     }
@@ -45,7 +47,7 @@ public class LinkedList {
         if (index < -1 || index >= size) {
             return null;
         }
-        Node pointer = head.next;
+        DoubleNode pointer = head.next;
         int cursor = 0;
         while (pointer != null) {
             if (cursor == index) {
@@ -65,11 +67,11 @@ public class LinkedList {
      * @param value 值
      * @return 节点值
      */
-    public LinkedList setValueByIndex(int index, Object value) {
+    public DoubleLinkedList setValueByIndex(int index, Object value) {
         if (index < -1 || index >= size) {
             return this;
         }
-        Node pointer = head.next;
+        DoubleNode pointer = head.next;
         int cursor = 0;
         while (pointer != null) {
             if (cursor == index) {
@@ -90,13 +92,17 @@ public class LinkedList {
      * @param value     插入的节点的值
      * @return 链表本身
      */
-    public LinkedList insertAfterNodeValue(Object nodeValue, int value) {
-        Node pointer = head.next;
+    public DoubleLinkedList insertAfterNodeValue(Object nodeValue, int value) {
+        DoubleNode pointer = head.next;
         while (pointer != null) {
             if (pointer.value == nodeValue) {
-                Node newNode = new Node(value);
-                newNode.next = pointer.next;
+                DoubleNode newNode = new DoubleNode(value);
+                if (pointer.next != null) {
+                    newNode.next = pointer.next;
+                    pointer.next.prev = newNode;
+                }
                 pointer.next = newNode;
+                newNode.prev = pointer;
                 size++;
                 break;
             } else {
@@ -107,97 +113,63 @@ public class LinkedList {
     }
 
     /**
-     * 插入一个值为value的节点到第index的位置上
+     * 在值为indexValue的节点前插入一个值为value的节点
      *
-     * @param index 第index的位置
-     * @param value 插入的节点的值
+     * @param nodeValue 要在值为indexValue的节点前插入
+     * @param value     插入的节点的值
      * @return 链表本身
      */
-    public LinkedList insertNodeByIndex(int index, Object value) {
-        Node pointer = head;
-        int cursor = 0;
+    public DoubleLinkedList insertBeforeNodeValue(Object nodeValue, int value) {
+        DoubleNode pointer = head;
         while (pointer != null) {
-            if (cursor == index) {
-                Node newNode = new Node(value);
+            if (pointer.value == nodeValue) {
+                DoubleNode newNode = new DoubleNode(value);
                 newNode.next = pointer.next;
                 pointer.next = newNode;
                 size++;
                 break;
             } else {
                 pointer = pointer.next;
-                cursor++;
             }
         }
         return this;
     }
 
     /**
-     * 在值为indexValue的节点后删除一个值为value的节点
-     *
-     * @param nodeValue 要在值为indexValue的节点后删除
-     * @return 链表本身
-     */
-    public LinkedList deleteByNodeValue(Object nodeValue) {
-        Node pointer = head;
-        while (pointer.next != null) {
-            if (pointer.next.value == nodeValue) {
-                pointer.next = pointer.next.next;
-                size--;
-                break;
-            } else {
-                pointer = pointer.next;
-            }
-        }
-        return this;
-    }
-
-    /**
-     * 删除第index的位置上的节点
-     *
-     * @param index 第index的位置
-     * @return 链表本身
-     */
-    public LinkedList deleteByIndex(int index) {
-        Node pointer = head;
-        int cursor = 0;
-        while (pointer.next != null) {
-            if (cursor == index) {
-                pointer.next = pointer.next.next;
-                size--;
-                break;
-            } else {
-                pointer = pointer.next;
-                cursor++;
-            }
-        }
-        return this;
-    }
-
-    /**
-     * 链表的所有节点的值顺序输入一个数组
+     * 链表的所有节点的值顺序再反向顺序输入一个数组
      *
      * @return 值的数组
      */
     public Object[] nodeValues() {
-        Object[] nodeValues = new Object[size];
+        if (size == 0) {
+            return new Object[0];
+        }
+        Object[] nodeValues = new Object[size * 2 - 1];
         int index = 0;
-        Node pointer = head;
+        DoubleNode pointer = head;
         while (pointer.next != null) {
             nodeValues[index++] = pointer.next.value;
             pointer = pointer.next;
         }
+        pointer = pointer.prev;
+        while (pointer.prev != null) {
+            nodeValues[index++] = pointer.value;
+            pointer = pointer.prev;
+        }
         return nodeValues;
     }
 
-    public static class Node {
+    public static class DoubleNode {
         Object value;
-        Node next;
+        DoubleNode prev;
+        DoubleNode next;
 
-        Node() {
+        DoubleNode() {
         }
 
-        Node(Object value) {
+        DoubleNode(Object value) {
             this.value = value;
         }
     }
+
 }
